@@ -1,0 +1,22 @@
+.container.show-conatiner{
+	margin-top: 7em;
+}
+
+.navbar-light .navbar-nav .nav-link:hover{ 
+	color:blue;
+}
+
+.caption-full{
+	padding:10px;
+}
+
+.card-body{
+	margin-top:20px;
+}
+
+.img-thumbnail {
+    width: auto;
+    height: 100px;
+	padding:0px;
+}
+	
