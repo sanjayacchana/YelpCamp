@@ -1,4 +1,4 @@
-<%- include ("partials/header") %>
+<%- include ("../partials/header") %>
 
 <div class="container" Style="padding:25px">
 	<div class="jumbotron">
@@ -21,10 +21,11 @@
 						<p class="lead">
 							<%= camp.description.substr(0,100)%>
 						</p>
+						<a class="btn btn-primary" href="/campgrounds/<%= camp._id %>" >More Info</a>	
 				</div>
 			</div>
 		<%});%>
 	</div>
 </div>
 
-<%- include ("partials/footer") %>
+<%- include ("../partials/footer") %>
