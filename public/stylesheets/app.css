@@ -14,9 +14,20 @@
 	margin-top:20px;
 }
 
-.img-thumbnail {
+.img-thumbnail-index {
     width: auto;
     height: 100px;
 	padding:0px;
 }
+
+.img-thumbnail{
+	padding: 0px;
+}
+.img-fluid {
+	width: 100%;
+	padding: 0px;
+}
+
+
+
 	
