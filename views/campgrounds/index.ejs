@@ -1,6 +1,6 @@
 <%- include ("../partials/header") %>
 
-<div class="container" Style="padding:25px">
+<div class="container" style="padding:25px">
 	<div class="jumbotron">
 		<h1 class="display-4"> WELCOME TO CAMPGROUNDS</h1>
 		<p class="lead">
@@ -15,11 +15,11 @@
 	<div class="row ">
 		<% campground.forEach(function(camp){%>
 			<div class="col-md-3 col-sm-6">
-					<img class="img-thumbnail" src="<%=camp.image%>" style="margin-top:25px">
+					<img class="img-thumbnail img-thumbnail-index" src="<%=camp.image%>" style="margin-top:25px">
 					<div class="figure-caption">
 						<h4> <%=camp.name%> </h4>
 						<p class="lead">
-							<%= camp.description.substr(0,100)%>
+							<%= camp.description.substr(0,20)%>...
 						</p>
 						<a class="btn btn-primary" href="/campgrounds/<%= camp._id %>" >More Info</a>	
 				</div>

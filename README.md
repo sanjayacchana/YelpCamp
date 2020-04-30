@@ -15,10 +15,24 @@
 
 # Packages Used
 
-	#express 
+	# express 
 		*npm install express --save
 	# body-parser
 		*npm install body-parser --save
+	# ejs
+		* npm install ejs --save
+	# mongoose
+		* npm install mongoose --save
+	# express-sanitizer
+		* npm install express-sanitizer --save
+	# passport
+		* npm install passport --save
+	# passport-local
+		* npm install passport-local --save
+	# passport-local-mongoose
+		* npm install passport-local-mongoose --save
+	# express-session
+		* npm install express-session --save
 	
 
 
