@@ -2,6 +2,7 @@ var express           = require('express'),
 bodyParser   		  = require('body-parser'),
 mongoose    		  = require('mongoose'),
 expressSanitizer	  = require('express-sanitizer'),
+methodOverride		  = require('method-override'),
 passport			  = require('passport'),
 passportLocal		  = require('passport-local'),
 passportLocalMongoose = require('passport-local-mongoose'),
@@ -23,6 +24,7 @@ app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 app.use(expressSanitizer());
+app.use(methodOverride("_method"));
 
 app.use(require('express-session')({
 	secret: 'sanjay the untold story:-)', 
