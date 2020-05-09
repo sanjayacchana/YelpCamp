@@ -1,7 +1,7 @@
-var express = require('express');
-var passport = require('passport');
-var User     = require('../models/User');
-var routes  = express.Router();
+var express 	= require('express');
+var passport    = require('passport');
+var User        = require('../models/User');
+var routes      = express.Router();
 
 routes.get("/register",function(req,res){
 	if(req.isAuthenticated()){
@@ -13,10 +13,11 @@ routes.get("/register",function(req,res){
 routes.post("/register",function(req,res){
 	User.register(new User({username:req.body.username}),req.body.password,function(err,user){
 		if(err){
-			console.log(err);
+			req.flash("error",err.message);
 			res.redirect("/register");
 		}else{
 			passport.authenticate("local")(req,res,function(){
+				req.flash("success","Welcome to YelpCamp: " + user.username);
 				res.redirect("/campgrounds");
 			});
 		}
@@ -39,15 +40,8 @@ routes.post("/login",passport.authenticate("local",{
 
 routes.get("/logout",function(req,res){
 	req.logout();
-	res.redirect("/");
+	req.flash("success", "You logged out successfully");
+	res.redirect("/campgrounds");
 });
-
-// middleware function
-function isLoggedIn(req,res,next){
-	if(req.isAuthenticated()){
-		return next();
-	}
-	res.redirect("/login");
-}
 
 module.exports = routes;

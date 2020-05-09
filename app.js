@@ -3,6 +3,7 @@ bodyParser   		  = require('body-parser'),
 mongoose    		  = require('mongoose'),
 expressSanitizer	  = require('express-sanitizer'),
 methodOverride		  = require('method-override'),
+flash				  = require('connect-flash'),
 passport			  = require('passport'),
 passportLocal		  = require('passport-local'),
 passportLocalMongoose = require('passport-local-mongoose'),
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 app.use(expressSanitizer());
 app.use(methodOverride("_method"));
+app.use(flash());
 
 app.use(require('express-session')({
 	secret: 'sanjay the untold story:-)', 
@@ -42,6 +44,8 @@ passport.deserializeUser(User.deserializeUser());
 // serves currentUser to all the pages
 app.use(function(req,res,next){
 	res.locals.currentUser =  req.user;
+	res.locals.error = req.flash("error");
+	res.locals.success = req.flash("success");
 	next();
 });
 

@@ -35,6 +35,8 @@
 		* npm install express-session --save
 	# method-override
 		* npm install method-override --save
+	# connect-flash
+		* npm install connect-flash --save
 		
 ## Note:
 			if you are cloning from this repo instead of installing each pack you can simply do the following commands
