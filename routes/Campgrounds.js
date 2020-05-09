@@ -1,10 +1,11 @@
 var express = require('express');
 var routes  = express.Router();
 var Campground = require('../models/Campgrounds');
+var middleware  = require('../middleware');
 
 
 routes.get("/",function(req,res){
-	res.redirect("/campgrounds");
+	res.render("landing");
 });
 
 routes.get("/campgrounds",function(req,res){
@@ -17,12 +18,12 @@ routes.get("/campgrounds",function(req,res){
 	});
 });
 
-routes.get("/campgrounds/new",isLoggedIn,function(req,res){
+routes.get("/campgrounds/new",middleware.isLoggedIn,function(req,res){
 	res.render("campgrounds/new");
 });
 
 
-routes.post("/campgrounds",isLoggedIn,function(req,res){
+routes.post("/campgrounds",middleware.isLoggedIn,function(req,res){
 	var author ={
 		id: req.user._id,
 		username: req.user.username
@@ -56,13 +57,13 @@ routes.get("/campgrounds/:id",function(req,res){
 	});
 });
 
-routes.get("/campgrounds/:id/edit",checkForOwnerShip,function(req,res){
+routes.get("/campgrounds/:id/edit",middleware.checkForOwnerShip,function(req,res){
 	Campground.findById(req.params.id,function(err,foundedCampground){
 		res.render("campgrounds/edit",{campground:foundedCampground});
 	});
 });
 
-routes.put("/campgrounds/:id",checkForOwnerShip,function(req,res){
+routes.put("/campgrounds/:id",middleware.checkForOwnerShip,function(req,res){
 	Campground.findByIdAndUpdate(req.params.id,req.body.campground,function(err,updatedCampgroung){
 		if(err){
 			console.log(err);
@@ -74,7 +75,7 @@ routes.put("/campgrounds/:id",checkForOwnerShip,function(req,res){
 });
 
 
-routes.delete("/campgrounds/:id",checkForOwnerShip,function(req,res){
+routes.delete("/campgrounds/:id",middleware.checkForOwnerShip,function(req,res){
 	Campground.findByIdAndRemove(req.params.id,function(err){
 		if(err){
 			console.log(err);
@@ -85,32 +86,5 @@ routes.delete("/campgrounds/:id",checkForOwnerShip,function(req,res){
 	});
 });
 
-// middleware function
-function isLoggedIn(req,res,next){
-	if(req.isAuthenticated()){
-		return next();
-	}
-	res.redirect("/login");
-}
-
-function checkForOwnerShip(req,res,next){
-	if(req.isAuthenticated()){
-		Campground.findById(req.params.id,function(err,foundedCampground){
-			if(err){
-				console.log(err);
-				res.redirect("back");
-			} else{
-				if(foundedCampground.author.id.equals(req.user._id)){
-					next();
-				} else{
-					res.redirect("back");
-				}
-			}
-		});
-	} else{
-		res.redirect("/login");
-	}
-	
-}
 module.exports = routes;
 

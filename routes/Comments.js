@@ -2,8 +2,9 @@ var express 	= require('express');
 var routes 	= express.Router({mergeParams:true});
 var Campground  = require('../models/Campgrounds');
 var Comments    = require('../models/Comments');
+var middleware  = require('../middleware');
 
-routes.get("/new",isLoggedIn,function(req,res){
+routes.get("/new",middleware.isLoggedIn,function(req,res){
 	Campground.findById(req.params.id,function(err,campground){
 		if(err){
 			console.log(err);
@@ -37,14 +38,5 @@ routes.post("/",function(req,res){
 		}
 	});
 });
-
-// middleware function
-function isLoggedIn(req,res,next){
-	if(req.isAuthenticated()){
-		return next();
-	}
-	res.redirect("/login");
-}
-
 
 module.exports = routes;
